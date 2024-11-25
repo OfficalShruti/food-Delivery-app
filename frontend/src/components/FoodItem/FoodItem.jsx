@@ -2,15 +2,21 @@ import React,{useContext} from 'react'
 import './FoodItem.css'
 import { assets } from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext'
+
+
 const FoodItem = ({id,name,price,description,image}) => {
+  // console.log(id,name,price,description,image);
   
-     
-    const{cartItems,addToCart,removeFromCart}=useContext(StoreContext);
+  const{cartItems,addToCart,removeFromCart,url}=useContext(StoreContext);
+  // const cartCount = cartItems[id] || 0;
+  // console.log("Cart Items:", cartItems);
     return (
     <div className='food-item'>
        <div className="food-item-img-container">
-         <img className='food-item-image'src={image} alt=""/>
-         {!cartItems[id]
+         <img className='food-item-image'src={url+"/images/"+image} alt=""/>
+         
+         {/* <p>{cartCount}</p> */}
+          {!cartItems[id]
             ?<img className='add' onClick={()=>addToCart(id)} src={assets.add_icon_white}alt=""/>
             :<div className='food-item-counter'>
                 <img onClick={()=>removeFromCart(id)}src={assets.remove_icon_red} alt=""/>
@@ -22,10 +28,10 @@ const FoodItem = ({id,name,price,description,image}) => {
        <div className="food-item-info">
           <div className="food-item-name-rating">
             <p>{name}</p>
-            <img src ={AuthenticatorAssertionResponse.rating_starts} alt=""/>
+            <img src ={assets.rating_starts} alt=""/>
           </div>
           <p className ="food-item-desc">{description}</p>
-          <p className="food-item-price">${price}</p>
+          <p className="food-item-price">Rs. {price}</p>
        </div>
 
     </div>
